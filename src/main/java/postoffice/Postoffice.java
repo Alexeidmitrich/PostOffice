@@ -10,12 +10,12 @@ public class Postoffice {
     List<Parcels> parcelsList = new ArrayList<>();
 
 
-    public void addLetters(int id, String startDate, int weight, int price, String finishDate, String transport){
-        Letters letters = new Letters(id, startDate, weight, price, finishDate, transport);
+    public void addLetters(int id, int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid){
+        Letters letters = new Letters(id, sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
         lettersList.add(letters);
     }
-    public void addParcels(int id, String startDate, int weight, int price, String finishDate, String transport){
-        Parcels parcels = new Parcels(id, startDate, weight, price, finishDate, transport);
+    public void addParcels(int id, int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid){
+        Parcels parcels = new Parcels(id, sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
         parcelsList.add(parcels);
     }
     public void addSender(String address, String firstname, String phone){
