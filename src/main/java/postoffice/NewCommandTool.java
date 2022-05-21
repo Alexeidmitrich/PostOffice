@@ -11,14 +11,14 @@ public class NewCommandTool {
     public void parseCommand(String command) {
         final String addPostOffice = "(addpostoffice)";
         final String addLetter = "(addletter) ([0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[a-zA-Zа-яА-Я]+;[0-9]+)";
-        final String addParcels = "(addparcels) ([0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[a-zA-Zа-яА-Я]+;[0-9]+)";
+        final String addParcels = "(addparcel) ([0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[a-zA-Zа-яА-Я]+;[0-9]+)";
         final String addSender = "(addsender) ([0-9]+;[a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-\\/.]+;[0-9a-zA-Zа-яА-Я]+;[0-9a-zA-Zа-яА-Я]+;[0-9a-zA-Zа-яА-Я]+;[0-9a-zA-Zа-яА-Я]+;[0-9a-zA-Zа-яА-Я]+;[0-9a-zA-Zа-яА-Я+]+;[0-9]+)";
         final String addRecipient = "(addrecipient) ([0-9]+;[a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-\\/.]+;[0-9a-zA-Zа-яА-Я]+;[0-9a-zA-Zа-яА-Я]+;[0-9a-zA-Zа-яА-Я]+;[0-9a-zA-Zа-яА-Я]+;[0-9a-zA-Zа-яА-Я]+;[0-9a-zA-Zа-яА-Я+]+;[0-9]+)";
         Matcher  matcher = isPatternMatches(command, addPostOffice);
         if (matcher.find()) {
             String data = matcher.group(1);
             System.out.println(data);
-            postoffice = new Postoffice();
+            postoffice = new Postofficeefactoring();
             System.out.println("Ok");
         }
 
@@ -29,10 +29,8 @@ public class NewCommandTool {
             String[] letterDate = data.split(";");
             int id = Integer.parseInt(letterDate[0]);
             int sender = Integer.parseInt(letterDate[1]);
-            //int departuredate = Integer.parseInt(letterDate[2]);
             int weight = Integer.parseInt(letterDate[3]);
             int price = Integer.parseInt(letterDate[4]);
-            //int arrivaldate = Integer.parseInt(letterDate[5]);
             int recipient = Integer.parseInt(letterDate[6]);
             int postid = Integer.parseInt(letterDate[8]);
             postoffice.addLetters(id, sender,letterDate[2], weight, price, letterDate[5],recipient, letterDate[7],postid);
@@ -45,13 +43,11 @@ public class NewCommandTool {
             String[] parcelsDate = data.split(";");
             int id = Integer.parseInt(parcelsDate[0]);
             int sender = Integer.parseInt(parcelsDate[1]);
-            //int departuredate = Integer.parseInt(ParcelsDate[2]);
             int weight = Integer.parseInt(parcelsDate[3]);
             int price = Integer.parseInt(parcelsDate[4]);
-            //int arrivaldate = Integer.parseInt(ParcelsDate[5]);
             int recipient = Integer.parseInt(parcelsDate[6]);
             int postid = Integer.parseInt(parcelsDate[8]);
-            postoffice.addLetters(id, sender,parcelsDate[2], weight, price, parcelsDate[5],recipient, parcelsDate[7],postid);
+            postoffice.addParcels(id, sender,parcelsDate[2], weight, price, parcelsDate[5],recipient, parcelsDate[7],postid);
             System.out.println("Ok");
         }
     }
