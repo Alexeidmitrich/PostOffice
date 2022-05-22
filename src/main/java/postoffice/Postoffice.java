@@ -18,12 +18,12 @@ public class Postoffice {
         Parcels parcels = new Parcels(id, sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
         parcelsList.add(parcels);
     }
-    public void addSender(String address, String firstname, String phone){
-        Sender sender = new Sender(address,firstname,phone);
+    public void addSender(int id, String city, String street, String numberhouse, String housebuilding, String flat, String firstname, String lastname, String phone, int postid){
+        Sender sender = new Sender(id, city, street, numberhouse, housebuilding, flat, firstname, lastname, phone, postid);
         senderList.add(sender);
     }
-    public void addRecipient(String address, String firstname, String phone){
-        Recipient recipient = new Recipient(address,firstname,phone);
+    public void addRecipient(int id, String city, String street, String numberhouse, String housebuilding, String flat, String firstname, String lastname, String phone, int postid){
+        Recipient recipient = new Recipient(id, city, street, numberhouse, housebuilding, flat, firstname, lastname, phone, postid);
         recipientList.add(recipient);
     }
     public void printSender(){
@@ -53,10 +53,6 @@ public class Postoffice {
 
     public static void main(String[] args) {
         Postoffice p = new Postoffice();
-        p.addSender("Sankt-Petersburg", "Alex","+79211234567");
-        p.addRecipient("Moscow", "Ivan","+79151234567");
-        p.printSender();
-        p.printRecipient();
     }
 }
 

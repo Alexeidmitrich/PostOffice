@@ -1,6 +1,6 @@
 package postoffice.database;
 
-import postoffice.Letters;
+
 import postoffice.Parcels;
 
 import java.sql.*;
@@ -33,7 +33,7 @@ public class ParcelsDAOImpl extends  DBManager implements ParcelsDAO{
         Parcels parcels = null;
         Connection connection = getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("select parcelsid, sender, departuredate, weight, price, arrivaldate ,recipient,transport,post_id from letters " +
+            PreparedStatement statement = connection.prepareStatement("select parcelsid, sender, departuredate, weight, price, arrivaldate ,recipient,transport,post_id from postoffice.parcels " +
                     " WHERE parcelsid = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
