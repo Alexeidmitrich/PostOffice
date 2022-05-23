@@ -19,7 +19,7 @@ public class LettersDAOImpl extends  DBManager implements LettersDAO{
 
             while (rs.next()) {
                 //System.out.println(rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getInt(4));
-                Letters letters = new Letters(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getString(8),rs.getInt(9));
+                Letters letters = new Letters(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getString(8),rs.getInt(9));
                 lettersList.add(letters);
             }
             connection.close();
@@ -39,7 +39,7 @@ public class LettersDAOImpl extends  DBManager implements LettersDAO{
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            letters = new Letters(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getString(6), rs.getInt(7),rs.getString(8), rs.getInt(9));
+            letters = new Letters(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getString(6), rs.getInt(7),rs.getString(8), rs.getInt(9));
 
             connection.close();
         } catch (SQLException ex) {
@@ -68,11 +68,5 @@ public class LettersDAOImpl extends  DBManager implements LettersDAO{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
-    public static void main(String[] args) {
-        LettersDAO dao  = new LettersDAOImpl();
-        Letters letters = dao.getLettersById(103);
-        letters.printAllPostalItems();
-
     }
 }

@@ -11,28 +11,28 @@ public class PostofficeRefactoring extends Postoffice {
     private ParcelsDAO parcelsDAO = new ParcelsDAOImpl();
     private RecipientDAO recipientDAO = new RecipientDAOImpl();
     private SenderDAO senderDAO = new SenderDAOImpl();
-
+    private AllPostItemDAO allPostItemDAO = new AllPostItemDAOImpl();
     @Override
-    public void addLetters(int id, int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid) {
-        Letters letters = new Letters(id, sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
+    public void addLetters(int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid) {
+        Letters letters = new Letters(sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
         lettersDAO.save(letters);
     }
 
     @Override
-    public void addParcels(int id, int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid) {
-        Parcels parcels = new Parcels(id, sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
+    public void addParcels(int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid) {
+        Parcels parcels = new Parcels(sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
         parcelsDAO.save(parcels);
     }
 
     @Override
-    public void addSender(int id, String city, String street, String numberhouse, String housebuilding, String flat, String firstname, String lastname, String phone, int postid) {
-        Sender sender = new Sender(id, city, street, numberhouse, housebuilding, flat, firstname, lastname, phone, postid);
+    public void addSender(String city, String street, String numberhouse, String housebuilding, String flat, String firstname, String lastname, String phone, int postid) {
+        Sender sender = new Sender(city, street, numberhouse, housebuilding, flat, firstname, lastname, phone, postid);
         senderDAO.save(sender);
     }
 
     @Override
-    public void addRecipient(int id, String city, String street, String numberhouse, String housebuilding, String flat, String firstname, String lastname, String phone, int postid) {
-        Recipient recipient = new Recipient(id, city, street, numberhouse, housebuilding, flat, firstname, lastname, phone, postid);
+    public void addRecipient(String city, String street, String numberhouse, String housebuilding, String flat, String firstname, String lastname, String phone, int postid) {
+        Recipient recipient = new Recipient(city, street, numberhouse, housebuilding, flat, firstname, lastname, phone, postid);
         recipientDAO.save(recipient);
     }
 
@@ -58,8 +58,8 @@ public class PostofficeRefactoring extends Postoffice {
     public void printLetters() {
         List<Letters> letters = lettersDAO.getAllLetters();
         for (int i = 0; i < letters.size(); i++) {
-         Letters letter = letters.get(i);
-         letter.printAllPostalItems();
+            Letters letter = letters.get(i);
+            letter.printItemInformation();
         }
     }
 
@@ -68,7 +68,16 @@ public class PostofficeRefactoring extends Postoffice {
         List<Parcels> parcels = parcelsDAO.getAllParcels();
         for (int i = 0; i < parcels.size(); i++) {
             Parcels parcel = parcels.get(i);
-            parcel.printAllPostalItems();
+            parcel.printItemInformation();
+        }
+    }
+
+    @Override
+    public void printAllPostItem() {
+        List<PostalItems> postalItems = allPostItemDAO.getAllPostalItem();
+        for (int i = 0; i < postalItems.size(); i++) {
+            PostalItems postalItem = postalItemsList.get(i);
+            postalItem.printItemInformation();
         }
     }
 }

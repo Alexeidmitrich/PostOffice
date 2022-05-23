@@ -10,14 +10,15 @@ public class NewCommandTool {
 
     public void parseCommand(String command) {
         final String addPostOffice = "(addpostoffice)";
-        final String addLetter = "(addletter) ([0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[a-zA-Zа-яА-Я]+;[0-9]+)";
-        final String addParcels = "(addparcel) ([0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[a-zA-Zа-яА-Я]+;[0-9]+)";
-        final String addSender = "(addsender) ([0-9]+;[a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/+]+;[0-9]+)";
-        final String addRecipient = "(addrecipient) ([0-9]+;[a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/+]+;[0-9]+)";
+        final String addLetter = "(addletter) ([0-9]+;[0-9\\/.]+;[0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[a-zA-Zа-яА-Я]+;[0-9]+)";
+        final String addParcels = "(addparcel) ([0-9]+;[0-9\\/.]+;[0-9]+;[0-9]+;[0-9\\/.]+;[0-9]+;[a-zA-Zа-яА-Я]+;[0-9]+)";
+        final String addSender = "(addsender) ([a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/+]+;[0-9]+)";
+        final String addRecipient = "(addrecipient) ([a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+;[0-9a-zA-Zа-яА-Я\\/+]+;[0-9]+)";
         final String printLetter = "(printletter)";
         final String printParcel = "(printparcel)";
         final String printSender = "(printsender)";
         final String printRecipient = "(printrecipient)";
+        final String printAllPostItem = "(printallpostitem)";
         Matcher  matcher = isPatternMatches(command, addPostOffice);
         if (matcher.find()) {
             String data = matcher.group(1);
@@ -31,13 +32,12 @@ public class NewCommandTool {
             String data = matcher.group(2);
             System.out.println(data);
             String[] letterDate = data.split(";");
-            int id = Integer.parseInt(letterDate[0]);
-            int sender = Integer.parseInt(letterDate[1]);
-            int weight = Integer.parseInt(letterDate[3]);
-            int price = Integer.parseInt(letterDate[4]);
-            int recipient = Integer.parseInt(letterDate[6]);
-            int postid = Integer.parseInt(letterDate[8]);
-            postoffice.addLetters(id, sender,letterDate[2], weight, price, letterDate[5],recipient, letterDate[7],postid);
+            int sender = Integer.parseInt(letterDate[0]);
+            int weight = Integer.parseInt(letterDate[2]);
+            int price = Integer.parseInt(letterDate[3]);
+            int recipient = Integer.parseInt(letterDate[5]);
+            int postid = Integer.parseInt(letterDate[7]);
+            postoffice.addLetters(sender, letterDate[1], weight, price, letterDate[4],recipient, letterDate[6],postid);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, addParcels);
@@ -45,13 +45,12 @@ public class NewCommandTool {
             String data = matcher.group(2);
             System.out.println(data);
             String[] parcelsDate = data.split(";");
-            int id = Integer.parseInt(parcelsDate[0]);
-            int sender = Integer.parseInt(parcelsDate[1]);
-            int weight = Integer.parseInt(parcelsDate[3]);
-            int price = Integer.parseInt(parcelsDate[4]);
-            int recipient = Integer.parseInt(parcelsDate[6]);
-            int postid = Integer.parseInt(parcelsDate[8]);
-            postoffice.addParcels(id, sender,parcelsDate[2], weight, price, parcelsDate[5],recipient, parcelsDate[7],postid);
+            int sender = Integer.parseInt(parcelsDate[0]);
+            int weight = Integer.parseInt(parcelsDate[2]);
+            int price = Integer.parseInt(parcelsDate[3]);
+            int recipient = Integer.parseInt(parcelsDate[5]);
+            int postid = Integer.parseInt(parcelsDate[7]);
+            postoffice.addParcels(sender,parcelsDate[1], weight, price, parcelsDate[4],recipient, parcelsDate[6],postid);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, addSender);
@@ -59,9 +58,8 @@ public class NewCommandTool {
             String data = matcher.group(2);
             System.out.println(data);
             String[] senderDate = data.split(";");
-            int id = Integer.parseInt(senderDate[0]);
-            int postid = Integer.parseInt(senderDate[9]);
-            postoffice.addSender(id, senderDate[1],senderDate[2], senderDate[3], senderDate[4], senderDate[5],senderDate[6], senderDate[7],senderDate[8], postid);
+            int postid = Integer.parseInt(senderDate[8]);
+            postoffice.addSender(senderDate[0],senderDate[1], senderDate[2], senderDate[3], senderDate[4],senderDate[5], senderDate[6],senderDate[7], postid);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, addRecipient);
@@ -69,9 +67,8 @@ public class NewCommandTool {
             String data = matcher.group(2);
             System.out.println(data);
             String[] recipientDate = data.split(";");
-            int id = Integer.parseInt(recipientDate[0]);
-            int postid = Integer.parseInt(recipientDate[9]);
-            postoffice.addRecipient(id, recipientDate[1],recipientDate[2], recipientDate[3], recipientDate[4], recipientDate[5], recipientDate[6], recipientDate[7],recipientDate[8], postid);
+            int postid = Integer.parseInt(recipientDate[8]);
+            postoffice.addRecipient(recipientDate[0],recipientDate[1], recipientDate[2], recipientDate[3], recipientDate[4], recipientDate[5], recipientDate[6],recipientDate[7], postid);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, printLetter);
@@ -92,6 +89,11 @@ public class NewCommandTool {
         matcher = isPatternMatches(command, printRecipient);
         if (matcher.find()) {
             postoffice.printRecipient();
+            System.out.println("OK");
+        }
+        matcher = isPatternMatches(command, printAllPostItem);
+        if (matcher.find()) {
+            postoffice.printAllPostItem();
             System.out.println("OK");
         }
     }

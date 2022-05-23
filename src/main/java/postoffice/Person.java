@@ -25,6 +25,18 @@ public class Person {
         this.postid = postid;
     }
 
+    public Person(String city,String street, String numberhouse, String housebuilding,String flat,String firstname, String lastname, String phone, int postid){
+        this.city = city;
+        this.street = street;
+        this.numberhouse = numberhouse;
+        this.housebuilding = housebuilding;
+        this.flat = flat;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.postid = postid;
+    }
+
     public int getId() {
         return id;
     }

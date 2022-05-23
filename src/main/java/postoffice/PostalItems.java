@@ -22,6 +22,16 @@ public class PostalItems {
         this.transport = transport;
         this.postid = postid;
     }
+    public PostalItems(int sender,String departuredate,int weight,int price,String arrivaldate,int recipient,String transport,int postid){
+        this.sender = sender;
+        this.departuredate = departuredate;
+        this.weight = weight;
+        this.price = price;
+        this.arrivaldate = arrivaldate;
+        this.recipient = recipient;
+        this.transport = transport;
+        this.postid = postid;
+    }
 
     public int getId() {
         return id;
@@ -95,7 +105,7 @@ public class PostalItems {
         this.postid = postid;
     }
 
-    public void printAllPostalItems(){
+    public void printItemInformation(){
         System.out.println(getId() + " " + getSender() + " " + getDeparturedate() + " " + getWeight() + " " + getPrice() + " " + getArrivaldate() + " " + getRecipient() + " " + getTransport() + " " + getPostid());
     }
 }
