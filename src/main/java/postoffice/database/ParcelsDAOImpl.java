@@ -17,7 +17,6 @@ public class ParcelsDAOImpl extends  DBManager implements ParcelsDAO{
             ResultSet rs = stmt.executeQuery("select parcelsid,sender,departuredate,weight,price,arrivaldate,recipient,transport,post_id from postoffice.parcels ");
 
             while (rs.next()) {
-                //System.out.println(rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getInt(4));
                 Parcels parcels = new Parcels(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getString(8),rs.getInt(9));
                 parcelsList.add(parcels);
             }

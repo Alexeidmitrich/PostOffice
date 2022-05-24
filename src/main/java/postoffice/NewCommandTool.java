@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NewCommandTool {
-    private Postoffice postoffice;
+    private PostofficeRefactoring postofficeRefactoring;
 
 
     public void parseCommand(String command) {
@@ -23,7 +23,7 @@ public class NewCommandTool {
         if (matcher.find()) {
             String data = matcher.group(1);
             System.out.println(data);
-            postoffice = new PostofficeRefactoring();
+            postofficeRefactoring = new PostofficeRefactoring();
             System.out.println("Ok");
         }
 
@@ -37,7 +37,7 @@ public class NewCommandTool {
             int price = Integer.parseInt(letterDate[3]);
             int recipient = Integer.parseInt(letterDate[5]);
             int postid = Integer.parseInt(letterDate[7]);
-            postoffice.addLetters(sender, letterDate[1], weight, price, letterDate[4],recipient, letterDate[6],postid);
+            postofficeRefactoring.addLetters(sender, letterDate[1], weight, price, letterDate[4],recipient, letterDate[6],postid);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, addParcels);
@@ -50,7 +50,7 @@ public class NewCommandTool {
             int price = Integer.parseInt(parcelsDate[3]);
             int recipient = Integer.parseInt(parcelsDate[5]);
             int postid = Integer.parseInt(parcelsDate[7]);
-            postoffice.addParcels(sender,parcelsDate[1], weight, price, parcelsDate[4],recipient, parcelsDate[6],postid);
+            postofficeRefactoring.addParcels(sender,parcelsDate[1], weight, price, parcelsDate[4],recipient, parcelsDate[6],postid);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, addSender);
@@ -59,7 +59,7 @@ public class NewCommandTool {
             System.out.println(data);
             String[] senderDate = data.split(";");
             int postid = Integer.parseInt(senderDate[8]);
-            postoffice.addSender(senderDate[0],senderDate[1], senderDate[2], senderDate[3], senderDate[4],senderDate[5], senderDate[6],senderDate[7], postid);
+            postofficeRefactoring.addSender(senderDate[0],senderDate[1], senderDate[2], senderDate[3], senderDate[4],senderDate[5], senderDate[6],senderDate[7], postid);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, addRecipient);
@@ -68,32 +68,32 @@ public class NewCommandTool {
             System.out.println(data);
             String[] recipientDate = data.split(";");
             int postid = Integer.parseInt(recipientDate[8]);
-            postoffice.addRecipient(recipientDate[0],recipientDate[1], recipientDate[2], recipientDate[3], recipientDate[4], recipientDate[5], recipientDate[6],recipientDate[7], postid);
+            postofficeRefactoring.addRecipient(recipientDate[0],recipientDate[1], recipientDate[2], recipientDate[3], recipientDate[4], recipientDate[5], recipientDate[6],recipientDate[7], postid);
             System.out.println("Ok");
         }
         matcher = isPatternMatches(command, printLetter);
         if (matcher.find()) {
-            postoffice.printLetters();
+            postofficeRefactoring.printLetters();
             System.out.println("OK");
         }
         matcher = isPatternMatches(command, printParcel);
         if (matcher.find()) {
-            postoffice.printParcels();
+            postofficeRefactoring.printParcels();
             System.out.println("OK");
         }
         matcher = isPatternMatches(command, printSender);
         if (matcher.find()) {
-            postoffice.printSender();
+            postofficeRefactoring.printSender();
             System.out.println("OK");
         }
         matcher = isPatternMatches(command, printRecipient);
         if (matcher.find()) {
-            postoffice.printRecipient();
+            postofficeRefactoring.printRecipient();
             System.out.println("OK");
         }
         matcher = isPatternMatches(command, printAllPostItem);
         if (matcher.find()) {
-            postoffice.printAllPostItem();
+            postofficeRefactoring.printAllPostItem();
             System.out.println("OK");
         }
     }
