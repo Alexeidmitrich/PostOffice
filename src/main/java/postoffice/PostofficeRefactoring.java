@@ -13,19 +13,16 @@ public class PostofficeRefactoring{
     private RecipientDAO recipientDAO = new RecipientDAOImpl();
     private SenderDAO senderDAO = new SenderDAOImpl();
     private AllPostItemDAO allPostItemDAO = new AllPostItemDAOImpl();
-    private List<PostalItems> postalItemsList = new ArrayList<>();
 
     public void addLetters(int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid) {
         Letters letters = new Letters(sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
         lettersDAO.save(letters);
-        postalItemsList.add(letters);
     }
 
 
     public void addParcels(int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid) {
         Parcels parcels = new Parcels(sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
         parcelsDAO.save(parcels);
-        postalItemsList.add(parcels);
     }
 
     public void addSender(String city, String street, String numberhouse, String housebuilding, String flat, String firstname, String lastname, String phone, int postid) {
@@ -78,7 +75,7 @@ public class PostofficeRefactoring{
     public void printAllPostItem() {
         List<PostalItems> postalItems = allPostItemDAO.getAllPostalItem();
         for (int i = 0; i < postalItems.size(); i++) {
-            PostalItems postalItem = postalItemsList.get(i);
+            PostalItems postalItem = postalItems.get(i);
             postalItem.printItemInformation();
         }
     }
