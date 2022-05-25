@@ -1,6 +1,7 @@
 package postoffice.database;
 
 import postoffice.Recipient;
+import postoffice.Sender;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class RecipientDAOImpl extends DBManager implements RecipientDAO{
         Connection connection = getConnection();
         try{
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("select recipientid,city, street, numberhouse, housebuilding,flat,firstname, lastname, phone, post_id from postoffice.recipient");
+            ResultSet rs = stmt.executeQuery("select * from postoffice.recipient");
 
             while (rs.next()) {
                 Recipient recipient = new Recipient(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),rs.getInt(10));
@@ -31,9 +32,29 @@ public class RecipientDAOImpl extends DBManager implements RecipientDAO{
         Recipient recipient = null;
         Connection connection = getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("select recipientid,city, street, numberhouse, housebuilding,flat,firstname, lastname, phone, post_id from postoffice.recipient " +
+            PreparedStatement statement = connection.prepareStatement("select * from postoffice.recipient " +
                     " WHERE recipientid = ?");
             statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            recipient = new Recipient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),rs.getInt(10));
+
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return recipient;
+    }
+
+    @Override
+    public Recipient getRecipientByName(String firstname, String lastname) {
+        Recipient recipient = null;
+        Connection connection = getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("select * from postoffice.recipient " +
+                    " WHERE firstname = ? and lastname = ?");
+            statement.setString(1,firstname);
+            statement.setString(2,lastname);
             ResultSet rs = statement.executeQuery();
             rs.next();
             recipient = new Recipient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),rs.getInt(10));

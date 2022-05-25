@@ -8,4 +8,5 @@ public interface ParcelsDAO {
     List<Parcels> getAllParcels();
     Parcels getParcelsById(int id);
     void save(Parcels parcels);
+
 }

@@ -2,7 +2,6 @@ package postoffice;
 
 import postoffice.database.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PostofficeRefactoring{
@@ -13,6 +12,10 @@ public class PostofficeRefactoring{
     private RecipientDAO recipientDAO = new RecipientDAOImpl();
     private SenderDAO senderDAO = new SenderDAOImpl();
     private AllPostItemDAO allPostItemDAO = new AllPostItemDAOImpl();
+    private ParcelsDAOImpl parcelsDAOImpl;
+    private LettersDAOImpl lettersDAOImpl;
+    private RecipientDAOImpl recipientDAOImpl;
+    private SenderDAOImpl senderDAOImpl;
 
     public void addLetters(int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid) {
         Letters letters = new Letters(sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
@@ -78,5 +81,25 @@ public class PostofficeRefactoring{
             PostalItems postalItem = postalItems.get(i);
             postalItem.printItemInformation();
         }
+    }
+    public void printOneParcelId(int id){
+        ParcelsDAOImpl parcelsDAOImpl = new ParcelsDAOImpl();
+        Parcels p = parcelsDAOImpl.getParcelsById(id);
+        p.printItemInformation();
+    }
+    public void printOneLettersId(int id){
+        LettersDAOImpl lettersDAOImpl = new LettersDAOImpl();
+        Letters p = lettersDAOImpl.getLettersById(id);
+        p.printItemInformation();
+    }
+    public void printItemForRecipientName(String firstname, String lastname){
+        RecipientDAOImpl recipientDAOImpl = new RecipientDAOImpl();
+        Recipient p = recipientDAOImpl.getRecipientByName(firstname,lastname);
+        p.printInformation();
+    }
+    public void printItemForSenderName(String firstname, String lastname){
+        SenderDAOImpl senderDAOImpl = new SenderDAOImpl();
+        Sender p = senderDAOImpl.getSenderName(firstname, lastname);
+        p.printInformation();
     }
 }

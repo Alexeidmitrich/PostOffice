@@ -33,7 +33,8 @@ public class AllPostItemDAOImpl extends DBManager implements AllPostItemDAO{
         Connection connection = getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT  * FROM postoffice.letters l UNION SELECT  * FROM postoffice.parcels p" +
-                    " WHERE lettersid = ?  and parcelsid = ?");
+                    " WHERE lettersid = ? or parcelsid = ?");
+            statement.setInt(1, id);
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             rs.next();

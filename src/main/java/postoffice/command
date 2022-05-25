@@ -10,3 +10,7 @@ printrecipient
 printparcel
 printletter
 printallpostitem
+printoneparcelid 42
+printoneletterid 106
+printitemforrecipientname Сафар;Кодиров
+printitemforsendername Игорь;Степанов

@@ -1,5 +1,6 @@
 package postoffice;
 
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,6 +20,10 @@ public class NewCommandTool {
         final String printSender = "(printsender)";
         final String printRecipient = "(printrecipient)";
         final String printAllPostItem = "(printallpostitem)";
+        final String printOneParcelId = "(printoneparcelid) ([0-9]+)";
+        final String printOneLetterId = "(printoneletterid) ([0-9]+)";
+        final String printItemForRecipientName = "(printitemforrecipientname) ([a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+)";
+        final String printItemForSenderName = "(printitemforsendername) ([a-zA-Zа-яА-Я\\/-]+;[a-zA-Zа-яА-Я\\/-]+)";
         Matcher  matcher = isPatternMatches(command, addPostOffice);
         if (matcher.find()) {
             String data = matcher.group(1);
@@ -94,6 +99,36 @@ public class NewCommandTool {
         matcher = isPatternMatches(command, printAllPostItem);
         if (matcher.find()) {
             postofficeRefactoring.printAllPostItem();
+            System.out.println("OK");
+        }
+        matcher = isPatternMatches(command, printOneParcelId);
+        if (matcher.find()) {
+            String data = matcher.group(2);
+            String [] oneParcelData = data.split(";");
+            int id = Integer.parseInt(oneParcelData[0]);
+            postofficeRefactoring.printOneParcelId(id);
+            System.out.println("OK");
+        }
+        matcher = isPatternMatches(command, printOneLetterId);
+        if (matcher.find()) {
+            String data = matcher.group(2);
+            String [] oneLetterData = data.split(";");
+            int id = Integer.parseInt(oneLetterData[0]);
+            postofficeRefactoring.printOneLettersId(id);
+            System.out.println("OK");
+        }
+        matcher = isPatternMatches(command, printItemForRecipientName);
+        if (matcher.find()) {
+            String data = matcher.group(2);
+            String [] recipientnameData = data.split(";");
+            postofficeRefactoring.printItemForRecipientName(recipientnameData[0],recipientnameData[1]);
+            System.out.println("OK");
+        }
+        matcher = isPatternMatches(command, printItemForSenderName);
+        if (matcher.find()) {
+            String data = matcher.group(2);
+            String [] sendernameData = data.split(";");
+            postofficeRefactoring.printItemForSenderName(sendernameData[0],sendernameData[1]);
             System.out.println("OK");
         }
     }

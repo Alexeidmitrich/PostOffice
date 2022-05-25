@@ -33,7 +33,7 @@ public class LettersDAOImpl extends  DBManager implements LettersDAO{
         Letters letters = null;
         Connection connection = getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("select lettersid, sender, departuredate, weight, price, arrivaldate ,recipient,transport,post_id from letters " +
+            PreparedStatement statement = connection.prepareStatement("select * from postoffice.letters " +
                     " WHERE lettersid = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();

@@ -32,7 +32,7 @@ public class ParcelsDAOImpl extends  DBManager implements ParcelsDAO{
         Parcels parcels = null;
         Connection connection = getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("select parcelsid, sender, departuredate, weight, price, arrivaldate ,recipient,transport,post_id from postoffice.parcels " +
+            PreparedStatement statement = connection.prepareStatement("select * from postoffice.parcels " +
                     " WHERE parcelsid = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
