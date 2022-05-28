@@ -15,10 +15,10 @@ public class LettersDAOImpl extends  DBManager implements LettersDAO{
         Connection connection = getConnection();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("select lettersid,sender,departuredate,weight,price,arrivaldate,recipient,transport,post_id from postoffice.letters ");
+            ResultSet rs = stmt.executeQuery("select * from postoffice.letters ");
 
             while (rs.next()) {
-                Letters letters = new Letters(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getString(8),rs.getInt(9));
+                Letters letters = new Letters(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8),rs.getInt(9));
                 lettersList.add(letters);
             }
             connection.close();
@@ -38,7 +38,7 @@ public class LettersDAOImpl extends  DBManager implements LettersDAO{
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            letters = new Letters(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getString(6), rs.getInt(7),rs.getString(8), rs.getInt(9));
+            letters = new Letters(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getString(6), rs.getInt(7),rs.getInt(8), rs.getInt(9));
 
             connection.close();
         } catch (SQLException ex) {
@@ -51,7 +51,7 @@ public class LettersDAOImpl extends  DBManager implements LettersDAO{
     public void save(Letters letters) {
         try {
             Connection connection = getConnection();
-            String sql = "insert into postoffice.letters (lettersid, sender, departuredate, weight, price, arrivaldate ,recipient,transport,post_id) values (?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into postoffice.letters (lettersid, sender, departuredate, weight, price, arrivaldate ,recipient,transport_id,post_id) values (?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1,letters.getId());
             statement.setInt(2, letters.getSender());
@@ -60,7 +60,7 @@ public class LettersDAOImpl extends  DBManager implements LettersDAO{
             statement.setInt(5,letters.getPrice());
             statement.setString(6,letters.getArrivaldate());
             statement.setInt(7,letters.getRecipient());
-            statement.setString(8,letters.getTransport());
+            statement.setInt(8,letters.getTransportid());
             statement.setInt(9,letters.getPostid());
             statement.execute();
             connection.close();

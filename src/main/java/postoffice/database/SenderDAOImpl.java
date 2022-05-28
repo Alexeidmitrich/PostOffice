@@ -1,5 +1,6 @@
 package postoffice.database;
 
+import postoffice.NumberPostOffice;
 import postoffice.Sender;
 
 import java.sql.*;
@@ -16,7 +17,8 @@ public class SenderDAOImpl extends DBManager implements SenderDAO{
             ResultSet rs = stmt.executeQuery("select senderid,city, street, numberhouse, housebuilding,flat,firstname, lastname, phone, post_id from postoffice.sender");
 
             while (rs.next()) {
-                Sender sender = new Sender(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),rs.getInt(10));
+                NumberPostOffice numberPostOffice = new NumberPostOffice(rs.getInt("postid"), rs.getString("city"));
+                Sender sender = new Sender(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),numberPostOffice);
                 senderList.add(sender);
             }
             connection.close();
@@ -36,7 +38,8 @@ public class SenderDAOImpl extends DBManager implements SenderDAO{
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            sender = new Sender(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),rs.getInt(10));
+            NumberPostOffice numberPostOffice = new NumberPostOffice(rs.getInt("postid"), rs.getString("city"));
+            sender = new Sender(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),numberPostOffice);
 
             connection.close();
         } catch (SQLException ex) {
@@ -56,7 +59,8 @@ public class SenderDAOImpl extends DBManager implements SenderDAO{
             statement.setString(2,lastname);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            sender = new Sender(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),rs.getInt(10));
+            NumberPostOffice numberPostOffice = new NumberPostOffice(rs.getInt("postid"), rs.getString("city"));
+            sender = new Sender(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9), numberPostOffice);
 
             connection.close();
         } catch (SQLException ex) {
@@ -66,7 +70,7 @@ public class SenderDAOImpl extends DBManager implements SenderDAO{
     }
 
     @Override
-    public void save(Sender sender) {
+    public void save(Sender sender, int postofficeId) {
         try {
             Connection connection = getConnection();
             String sql = "insert into postoffice.sender (senderid,city, street, numberhouse, housebuilding,flat,firstname, lastname, phone, post_id) values (?,?,?,?,?,?,?,?,?,?)";
@@ -80,7 +84,7 @@ public class SenderDAOImpl extends DBManager implements SenderDAO{
             statement.setString(7, sender.getFirstname());
             statement.setString(8, sender.getLastname());
             statement.setString(9, sender.getPhone());
-            statement.setInt(10, sender.getPostid());
+            statement.setInt(10, postofficeId);
             statement.execute();
             connection.close();
         } catch (SQLException ex) {

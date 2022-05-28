@@ -14,10 +14,10 @@ public class ParcelsDAOImpl extends  DBManager implements ParcelsDAO{
         Connection connection = getConnection();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("select parcelsid,sender,departuredate,weight,price,arrivaldate,recipient,transport,post_id from postoffice.parcels ");
+            ResultSet rs = stmt.executeQuery("select * from postoffice.parcels ");
 
             while (rs.next()) {
-                Parcels parcels = new Parcels(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getString(8),rs.getInt(9));
+                Parcels parcels = new Parcels(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8),rs.getInt(9));
                 parcelsList.add(parcels);
             }
             connection.close();
@@ -37,7 +37,7 @@ public class ParcelsDAOImpl extends  DBManager implements ParcelsDAO{
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            parcels = new Parcels(rs.getInt(1), rs.getInt(2),rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getString(6), rs.getInt(7),rs.getString(8), rs.getInt(9));
+            parcels = new Parcels(rs.getInt(1), rs.getInt(2),rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getString(6), rs.getInt(7),rs.getInt(8), rs.getInt(9));
 
             connection.close();
         } catch (SQLException ex) {
@@ -50,7 +50,7 @@ public class ParcelsDAOImpl extends  DBManager implements ParcelsDAO{
     public void save(Parcels parcels) {
         try {
             Connection connection = getConnection();
-            String sql = "insert into postoffice.parcels (parcelsid, sender, departuredate, weight, price, arrivaldate ,recipient,transport,post_id) values (?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into postoffice.parcels (parcelsid, sender, departuredate, weight, price, arrivaldate ,recipient,transport_id,post_id) values (?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1,parcels.getId());
             statement.setInt(2, parcels.getSender());
@@ -59,7 +59,7 @@ public class ParcelsDAOImpl extends  DBManager implements ParcelsDAO{
             statement.setInt(5,parcels.getPrice());
             statement.setString(6,parcels.getArrivaldate());
             statement.setInt(7,parcels.getRecipient());
-            statement.setString(8,parcels.getTransport());
+            statement.setInt(8,parcels.getTransportid());
             statement.setInt(9,parcels.getPostid());
             statement.execute();
             connection.close();

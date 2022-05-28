@@ -1,16 +1,16 @@
 addpostoffice
-addsender Москва;Авиамоторная;65;3;29;Роман;Домашкан;+79454534567;1
+addsender Москва;Авиамоторная;65;3;29;Ром;Домаш;+79454534567;1
 addsender Санкт-Петербург;Народная;4;1;219;Алексей;Пушкин;+79811234567;3
 addrecipient Новосибирск;Пушкинская;6;4;90;Сафар;Кодиров;+79524534567;4
 addrecipient Великий-Новгород;Санкт-Петербургская;5;2;7;Игорь;Степанов;+79114534487;2
-addletter 1;2022.05.24;128;450;2022.05.24;1;авиа;2
-addparcel 2;2022.05.24;128;450;2022.05.24;2;авто;1
+addletter 1;2022.05.24;128;450;2022.05.24;1;1;2
+addparcel 2;2022.05.24;128;450;2022.05.24;2;3;1
 printsender
 printrecipient
 printparcel
 printletter
 printallpostitem
-printoneparcelid 42
-printoneletterid 106
+printoneparcelid 101
+printoneletterid 102
 printitemforrecipientname Сафар;Кодиров
 printitemforsendername Игорь;Степанов

@@ -10,5 +10,5 @@ public interface SenderDAO {
     Sender getSenderById(int id);
 
     Sender getSenderName(String firstname, String lastname);
-    void save(Sender sender);
+    void save(Sender sender, int postofficeId);
 }

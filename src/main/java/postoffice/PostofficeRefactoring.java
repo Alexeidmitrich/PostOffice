@@ -12,31 +12,31 @@ public class PostofficeRefactoring{
     private RecipientDAO recipientDAO = new RecipientDAOImpl();
     private SenderDAO senderDAO = new SenderDAOImpl();
     private AllPostItemDAO allPostItemDAO = new AllPostItemDAOImpl();
-    private ParcelsDAOImpl parcelsDAOImpl;
+    private ParcelsDAO parcelsDAOImpl = new ParcelsDAOImpl();
     private LettersDAOImpl lettersDAOImpl;
     private RecipientDAOImpl recipientDAOImpl;
     private SenderDAOImpl senderDAOImpl;
 
-    public void addLetters(int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid) {
-        Letters letters = new Letters(sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
+    public void addLetters(int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, int transportid, int postid) {
+        Letters letters = new Letters(sender, departuredate, weight, price, arrivaldate, recipient, transportid, postid);
         lettersDAO.save(letters);
     }
 
 
-    public void addParcels(int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, String transport, int postid) {
-        Parcels parcels = new Parcels(sender, departuredate, weight, price, arrivaldate, recipient, transport, postid);
+    public void addParcels(int sender, String departuredate, int weight, int price, String arrivaldate, int recipient, int transportid, int postid) {
+        Parcels parcels = new Parcels(sender, departuredate, weight, price, arrivaldate, recipient, transportid, postid);
         parcelsDAO.save(parcels);
     }
 
-    public void addSender(String city, String street, String numberhouse, String housebuilding, String flat, String firstname, String lastname, String phone, int postid) {
-        Sender sender = new Sender(city, street, numberhouse, housebuilding, flat, firstname, lastname, phone, postid);
-        senderDAO.save(sender);
+    public void addSender(String city,String street, String numberhouse, String housebuilding,String flat,String firstname, String lastname, String phone, int bankid) {
+        Sender sender = new Sender(city, street, numberhouse, housebuilding, flat, firstname, lastname, phone);
+        senderDAO.save(sender, bankid);
     }
 
 
-    public void addRecipient(String city, String street, String numberhouse, String housebuilding, String flat, String firstname, String lastname, String phone, int postid) {
-        Recipient recipient = new Recipient(city, street, numberhouse, housebuilding, flat, firstname, lastname, phone, postid);
-        recipientDAO.save(recipient);
+    public void addRecipient(String city, String street, String numberhouse, String housebuilding, String flat, String firstname, String lastname, String phone, int bankid) {
+        Recipient recipient = new Recipient(city, street, numberhouse, housebuilding, flat, firstname, lastname, phone);
+        recipientDAO.save(recipient, bankid);
     }
 
 

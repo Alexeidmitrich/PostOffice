@@ -17,7 +17,7 @@ public class AllPostItemDAOImpl extends DBManager implements AllPostItemDAO{
             ResultSet rs = stmt.executeQuery("SELECT  * FROM postoffice.letters l UNION SELECT  * FROM postoffice.parcels p");
 
             while (rs.next()) {
-              PostalItems postalItems = new PostalItems(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getString(8),rs.getInt(9));
+              PostalItems postalItems = new PostalItems(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8),rs.getInt(9));
               postalItemsList.add(postalItems);
             }
             connection.close();
@@ -35,10 +35,10 @@ public class AllPostItemDAOImpl extends DBManager implements AllPostItemDAO{
             PreparedStatement statement = connection.prepareStatement("SELECT  * FROM postoffice.letters l UNION SELECT  * FROM postoffice.parcels p" +
                     " WHERE lettersid = ? or parcelsid = ?");
             statement.setInt(1, id);
-            statement.setInt(1, id);
+            statement.setInt(2, id);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            postalItems = new PostalItems(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getString(6), rs.getInt(7),rs.getString(8), rs.getInt(9));
+            postalItems = new PostalItems(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4),rs.getInt(5), rs.getString(6), rs.getInt(7),rs.getInt(8), rs.getInt(9));
 
             connection.close();
         } catch (SQLException ex) {

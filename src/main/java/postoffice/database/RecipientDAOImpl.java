@@ -1,7 +1,7 @@
 package postoffice.database;
 
+import postoffice.NumberPostOffice;
 import postoffice.Recipient;
-import postoffice.Sender;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +17,8 @@ public class RecipientDAOImpl extends DBManager implements RecipientDAO{
             ResultSet rs = stmt.executeQuery("select * from postoffice.recipient");
 
             while (rs.next()) {
-                Recipient recipient = new Recipient(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),rs.getInt(10));
+                NumberPostOffice numberPostOffice = new NumberPostOffice(rs.getInt("postid"), rs.getString("city"));
+                Recipient recipient = new Recipient(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),numberPostOffice);
                 recipientList.add(recipient);
             }
             connection.close();
@@ -37,7 +38,8 @@ public class RecipientDAOImpl extends DBManager implements RecipientDAO{
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            recipient = new Recipient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),rs.getInt(10));
+            NumberPostOffice numberPostOffice = new NumberPostOffice(rs.getInt("postid"), rs.getString("city"));
+            recipient = new Recipient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),numberPostOffice);
 
             connection.close();
         } catch (SQLException ex) {
@@ -51,13 +53,15 @@ public class RecipientDAOImpl extends DBManager implements RecipientDAO{
         Recipient recipient = null;
         Connection connection = getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from postoffice.recipient " +
-                    " WHERE firstname = ? and lastname = ?");
+            String sql = "select recipientid,r.city, r.street, r.numberhouse , r.housebuilding, r.flat, r.firstname, r.lastname, r.phone , p.postid , p.city from postoffice.recipient r"+
+                    "inner join postoffice.postoffice p on r.post_id = p.postid  WHERE firstname = ? and lastname = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1,firstname);
             statement.setString(2,lastname);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            recipient = new Recipient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),rs.getInt(10));
+            NumberPostOffice numberPostOffice = new NumberPostOffice(rs.getInt("postid"), rs.getString("city"));
+            recipient = new Recipient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),numberPostOffice);
 
             connection.close();
         } catch (SQLException ex) {
@@ -67,7 +71,7 @@ public class RecipientDAOImpl extends DBManager implements RecipientDAO{
     }
 
     @Override
-    public void save(Recipient recipient) {
+    public void save(Recipient recipient, int postofficeId) {
         try {
             Connection connection = getConnection();
             String sql = "insert into postoffice.recipient (recipientid,city, street, numberhouse, housebuilding,flat,firstname, lastname, phone, post_id) values (?,?,?,?,?,?,?,?,?,?)";
@@ -81,7 +85,7 @@ public class RecipientDAOImpl extends DBManager implements RecipientDAO{
             statement.setString(7, recipient.getFirstname());
             statement.setString(8, recipient.getLastname());
             statement.setString(9, recipient.getPhone());
-            statement.setInt(10,recipient.getPostid());
+            statement.setInt(10,postofficeId);
             statement.execute();
             connection.close();
         } catch (SQLException ex) {

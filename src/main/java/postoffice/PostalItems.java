@@ -8,10 +8,10 @@ public class PostalItems {
     protected int price;
     protected String arrivaldate;
     protected  int recipient;
-    protected String transport;
+    protected int transportid;
     protected int postid;
 
-    public PostalItems(int id,int sender,String departuredate,int weight,int price,String arrivaldate,int recipient,String transport,int postid){
+    public PostalItems(int id,int sender,String departuredate,int weight,int price,String arrivaldate,int recipient,int transportid,int postid){
         this.id = id;
         this.sender = sender;
         this.departuredate = departuredate;
@@ -19,17 +19,17 @@ public class PostalItems {
         this.price = price;
         this.arrivaldate = arrivaldate;
         this.recipient = recipient;
-        this.transport = transport;
+        this.transportid = transportid;
         this.postid = postid;
     }
-    public PostalItems(int sender,String departuredate,int weight,int price,String arrivaldate,int recipient,String transport,int postid){
+    public PostalItems(int sender,String departuredate,int weight,int price,String arrivaldate,int recipient, int transportid,int postid){
         this.sender = sender;
         this.departuredate = departuredate;
         this.weight = weight;
         this.price = price;
         this.arrivaldate = arrivaldate;
         this.recipient = recipient;
-        this.transport = transport;
+        this.transportid = transportid;
         this.postid = postid;
     }
 
@@ -89,12 +89,12 @@ public class PostalItems {
         this.recipient = recipient;
     }
 
-    public String getTransport() {
-        return transport;
+    public int getTransportid() {
+        return transportid;
     }
 
-    public void setTransport(String transport) {
-        this.transport = transport;
+    public void setTransportid(int transportid) {
+        this.transportid = transportid;
     }
 
     public int getPostid() {
@@ -106,6 +106,6 @@ public class PostalItems {
     }
 
     public void printItemInformation(){
-        System.out.println(getId() + " " + getSender() + " " + getDeparturedate() + " " + getWeight() + " " + getPrice() + " " + getArrivaldate() + " " + getRecipient() + " " + getTransport() + " " + getPostid());
+        System.out.println(getId() + " " + getSender() + " " + getDeparturedate() + " " + getWeight() + " " + getPrice() + " " + getArrivaldate() + " " + getRecipient() + " " + getTransportid() + " " + getPostid());
     }
 }

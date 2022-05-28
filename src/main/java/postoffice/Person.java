@@ -10,9 +10,10 @@ public class Person {
     protected String firstname;
     protected String lastname;
     protected String phone;
-    protected int postid;
+    //protected int postid;
+    protected NumberPostOffice numberPostOffice;
 
-    public Person(int id, String city,String street, String numberhouse, String housebuilding,String flat,String firstname, String lastname, String phone, int postid){
+    public Person(int id, String city,String street, String numberhouse, String housebuilding,String flat,String firstname, String lastname, String phone, NumberPostOffice numberPostOffice){
         this.id = id;
         this.city = city;
         this.street = street;
@@ -22,10 +23,10 @@ public class Person {
         this.firstname = firstname;
         this.lastname = lastname;
         this.phone = phone;
-        this.postid = postid;
+        this.numberPostOffice = numberPostOffice;
     }
 
-    public Person(String city,String street, String numberhouse, String housebuilding,String flat,String firstname, String lastname, String phone, int postid){
+    public Person(String city,String street, String numberhouse, String housebuilding,String flat,String firstname, String lastname, String phone){
         this.city = city;
         this.street = street;
         this.numberhouse = numberhouse;
@@ -34,7 +35,6 @@ public class Person {
         this.firstname = firstname;
         this.lastname = lastname;
         this.phone = phone;
-        this.postid = postid;
     }
 
     public int getId() {
@@ -109,17 +109,17 @@ public class Person {
         this.phone = phone;
     }
 
-    public int getPostid() {
-        return postid;
+    public NumberPostOffice getNumberPostOffice() {
+        return numberPostOffice;
     }
 
-    public void setPostid(int postid) {
-        this.postid = postid;
+    public void setNumberPostOffice(NumberPostOffice numberPostOffice) {
+        this.numberPostOffice = numberPostOffice;
     }
 
     public void printInformation(){
 
-        System.out.println(getId() + " " + getCity() + " " + getStreet() + " " + getNumberhouse() + " " + getHousebuilding() + " " + getFlat() + " " + getFirstname() + " " + getLastname() + " " + getPhone() + " " + getPostid());
+        System.out.println(getId() + " " + getCity() + " " + getStreet() + " " + getNumberhouse() + " " + getHousebuilding() + " " + getFlat() + " " + getFirstname() + " " + getLastname() + " " + getPhone() + " " + getNumberPostOffice());
     }
 }
 
