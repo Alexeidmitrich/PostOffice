@@ -1,16 +1,16 @@
 package postoffice;
 
 public class NumberPostOffice {
-    private int postid;
+    private int id;
     private String city;
 
-    public NumberPostOffice(int postid, String city){
-        this.postid = postid;
+    public NumberPostOffice(int id, String city){
+        this.id = id;
         this.city = city;
     }
 
-    public int getPostid() {
-        return postid;
+    public int getId() {
+        return id;
     }
 
     public String getCity() {

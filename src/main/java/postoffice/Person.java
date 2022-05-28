@@ -119,7 +119,7 @@ public class Person {
 
     public void printInformation(){
 
-        System.out.println(getId() + " " + getCity() + " " + getStreet() + " " + getNumberhouse() + " " + getHousebuilding() + " " + getFlat() + " " + getFirstname() + " " + getLastname() + " " + getPhone() + " " + getNumberPostOffice());
+        System.out.println(getId() + " " + getCity() + " " + getStreet() + " " + getNumberhouse() + " " + getHousebuilding() + " " + getFlat() + " " + getFirstname() + " " + getLastname() + " " + getPhone() + " " + getId());
     }
 }
 

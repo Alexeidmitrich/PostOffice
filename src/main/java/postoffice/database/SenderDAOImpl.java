@@ -14,10 +14,10 @@ public class SenderDAOImpl extends DBManager implements SenderDAO{
         Connection connection = getConnection();
         try{
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("select senderid,city, street, numberhouse, housebuilding,flat,firstname, lastname, phone, post_id from postoffice.sender");
+            ResultSet rs = stmt.executeQuery("SELECT senderid,city, street, numberhouse, housebuilding,flat,firstname, lastname, phone, post_id from postoffice.sender");
 
             while (rs.next()) {
-                NumberPostOffice numberPostOffice = new NumberPostOffice(rs.getInt("postid"), rs.getString("city"));
+                NumberPostOffice numberPostOffice = new NumberPostOffice(rs.getInt("post_id"), rs.getString("city"));
                 Sender sender = new Sender(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),numberPostOffice);
                 senderList.add(sender);
             }
@@ -33,7 +33,7 @@ public class SenderDAOImpl extends DBManager implements SenderDAO{
         Sender sender = null;
         Connection connection = getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from postoffice.sender " +
+            PreparedStatement statement = connection.prepareStatement("SELECT * from postoffice.sender " +
                     " WHERE sendersid = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
@@ -53,8 +53,9 @@ public class SenderDAOImpl extends DBManager implements SenderDAO{
         Sender sender = null;
         Connection connection = getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from postoffice.sender " +
-                    " WHERE firstname = ? and lastname = ?");
+            String sql = "SELECT senderid,s.city, s.street, s.numberhouse , s.housebuilding, s.flat, s.firstname, s.lastname, s.phone , p.postid , p.city from postoffice.sender s "+
+                    " inner join postoffice.postoffice p on s.post_id = p.postid  WHERE firstname = ? and lastname = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1,firstname);
             statement.setString(2,lastname);
             ResultSet rs = statement.executeQuery();
@@ -73,7 +74,7 @@ public class SenderDAOImpl extends DBManager implements SenderDAO{
     public void save(Sender sender, int postofficeId) {
         try {
             Connection connection = getConnection();
-            String sql = "insert into postoffice.sender (senderid,city, street, numberhouse, housebuilding,flat,firstname, lastname, phone, post_id) values (?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO postoffice.sender (senderid,city, street, numberhouse, housebuilding,flat,firstname, lastname, phone, post_id) values (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, sender.getId());
             statement.setString(2, sender.getCity() );

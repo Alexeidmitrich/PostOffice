@@ -14,10 +14,10 @@ public class RecipientDAOImpl extends DBManager implements RecipientDAO{
         Connection connection = getConnection();
         try{
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from postoffice.recipient");
+            ResultSet rs = stmt.executeQuery("SELECT * from postoffice.recipient");
 
             while (rs.next()) {
-                NumberPostOffice numberPostOffice = new NumberPostOffice(rs.getInt("postid"), rs.getString("city"));
+                NumberPostOffice numberPostOffice = new NumberPostOffice(rs.getInt("post_id"), rs.getString("city"));
                 Recipient recipient = new Recipient(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getString(9),numberPostOffice);
                 recipientList.add(recipient);
             }
@@ -53,8 +53,8 @@ public class RecipientDAOImpl extends DBManager implements RecipientDAO{
         Recipient recipient = null;
         Connection connection = getConnection();
         try {
-            String sql = "select recipientid,r.city, r.street, r.numberhouse , r.housebuilding, r.flat, r.firstname, r.lastname, r.phone , p.postid , p.city from postoffice.recipient r"+
-                    "inner join postoffice.postoffice p on r.post_id = p.postid  WHERE firstname = ? and lastname = ?";
+            String sql = "select recipientid,r.city, r.street, r.numberhouse , r.housebuilding, r.flat, r.firstname, r.lastname, r.phone , p.postid , p.city from postoffice.recipient r "+
+                    " inner join postoffice.postoffice p on r.post_id = p.postid  WHERE firstname = ? and lastname = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1,firstname);
             statement.setString(2,lastname);
